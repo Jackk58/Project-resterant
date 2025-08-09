@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านอาหารท้องถิ่น</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* ตัวแปรสี */
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --light-color: #fdf2e9;
+            --dark-color: #333;
+            --white-color: #fff;
+            --success-color: #27ae60;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        /* ส่วนหัวเว็บ */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--white-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--light-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ส่วนเนื้อหาหลัก */
+        main {
+            margin-top: 70px;
+            min-height: calc(100vh - 120px);
+        }
+
+        .section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary-color);
+            font-size: 2rem;
+        }
+
+        /* หน้าแรก */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1200x600');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white-color);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--white-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* หน้าเมนู */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background-color: var(--white-color);
+            color: var(--dark-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background-color: var(--white-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-item-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .menu-item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .menu-item-desc {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .add-to-cart {
+            width: 100%;
+        }
+
+        /* OCR Section */
+        .ocr-section {
+            background-color: var(--white-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .ocr-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .ocr-upload {
+            border: 2px dashed #ccc;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .ocr-upload:hover {
+            border-color: var(--primary-color);
+        }
+
+        .ocr-preview {
+            max-width: 100%;
+            max-height: 300px;
+            display: none;
+            margin: 0 auto;
+        }
+
+        .ocr-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 100px;
+            background-color: #f9f9f9;
+        }
+
+        /* หน้าเกี่ยวกับเรา */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-img {
+            background-color: #ddd;
+            height: 400px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .about-text h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* หน้าติดต่อเรา */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .contact-info {
+            background-color: var(--white-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item i {
+            margin-right: 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .contact-map {
+            height: 400px;
+            background-color: #ddd;
+            border-radius: 8px;
+        }
+
+        /* หน้าโปรโมชั่น */
+        .promotions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .promotion-card {
+            background-color: var(--white-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .promotion-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .promotion-content {
+            padding: 1.5rem;
+        }
+
+        .promotion-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .promotion-desc {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .promotion-period {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* หน้าสั่งอาหารออนไลน์ */
+        .order-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .cart-items {
+            background-color: var(--white-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 60px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            background-color: #eee;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0.2rem;
+        }
+
+        .remove-item {
+            color: #e74c3c;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .cart-summary {
+            background-color: var(--white-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+
+        .summary-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* หน้าชำระเงิน */
+        .payment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .payment-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .step.active .step-number {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .step.completed .step-number {
+            background-color: var(--success-color);
+            color: var(--white-color);
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .step.active .step-text {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .step.completed .step-text {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-method {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-color);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(230, 126, 34, 0.1);
+        }
+
+        .payment-method i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-form {
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .payment-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background-color: #666;
+        }
+
+        .btn-secondary:hover {
+            background-color: #444;
+        }
+
+        /* หน้าสำเร็จ */
+        .success-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: var(--white-color);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: var(--success-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .success-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .success-message {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ส่วนท้ายเว็บ */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white-color);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white-color);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .about-content, .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img {
+                order: -1;
+            }
+
+            .order-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-summary {
+                position: static;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        /* Page Styles */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+    </style>
+    <!-- Font Awesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Tesseract.js สำหรับ OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <!-- ส่วนหัวเว็บ -->
+    <header>
+        <div class="header-container">
+            <div class="logo">ร้านอาหารท้องถิ่น</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="home">หน้าหลัก</a></li>
+                    <li><a href="#" class="nav-link" data-page="menu">เมนูอาหาร</a></li>
+                    <li><a href="#" class="nav-link" data-page="about">เกี่ยวกับเรา</a></li>
+                    <li><a href="#" class="nav-link" data-page="contact">ติดต่อเรา</a></li>
+                    <li><a href="#" class="nav-link" data-page="promotions">โปรโมชั่น</a></li>
+                    <li><a href="#" class="nav-link" data-page="order">สั่งอาหารออนไลน์</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ส่วนเนื้อหาหลัก -->
+    <main>
+        <!-- หน้าหลัก -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>ร้านอาหารท้องถิ่น</h1>
+                    <p>สัมผัสรสชาติอาหารพื้นบ้านแท้ๆ จากวัตถุดิบคุณภาพ สูตรต้นตำรับ</p>
+                    <a href="#" class="btn nav-link" data-page="menu">ดูเมนูอาหาร</a>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">จุดเด่นของเรา</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-utensils"></i>
+                        <h3>อาหารพื้นบ้านแท้</h3>
+                        <p>เราใช้วัตถุดิบท้องถิ่นคุณภาพสูง ปรุงตามสูตรดั้งเดิม</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3>วัตถุดิบสดใหม่</h3>
+                        <p>เลือกสรรวัตถุดิบสดใหม่ทุกวัน จากแหล่งผลิตโดยตรง</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>ทำด้วยใจ</h3>
+                        <p>ทุกจานทำด้วยความตั้งใจ เพื่อให้คุณได้รับประสบการณ์ที่ดีที่สุด</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- หน้าเมนูอาหาร -->
+        <section id="menu" class="page">
+            <div class="section">
+                <h2 class="section-title">เมนูอาหาร</h2>
+                
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all">ทั้งหมด</button>
+                    <button class="category-btn" data-category="appetizer">อาหารว่าง</button>
+                    <button class="category-btn" data-category="main">อาหารจานหลัก</button>
+                    <button class="category-btn" data-category="dessert">ของหวาน</button>
+                    <button class="category-btn" data-category="drink">เครื่องดื่ม</button>
+                </div>
+
+                <div class="menu-items" id="menuItems">
+                    <!-- เมนูอาหารจะถูกเพิ่มโดย JavaScript -->
+                </div>
+
+                <!-- ส่วน OCR สำหรับแปลงรูปภาพเมนูเป็นข้อความ -->
+                <div class="ocr-section">
+                    <h3>แปลงรูปภาพเมนูเป็นข้อความ</h3>
+                    <p>อัปโหลดรูปภาพเมนูอาหารเพื่อแปลงเป็นข้อความอัตโนมัติ</p>
+                    
+                    <div class="ocr-container">
+                        <div class="ocr-upload" id="ocrUpload">
+                            <i class="fas fa-camera" style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary-color);"></i>
+                            <p>คลิกเพื่ออัปโหลดรูปภาพเมนูอาหาร</p>
+                            <input type="file" id="ocrInput" accept="image/*" style="display: none;">
+                        </div>
+                        <img id="ocrPreview" class="ocr-preview" alt="ภาพตัวอย่าง">
+                        <div class="ocr-result" id="ocrResult">
+                            <p>ผลลัพธ์จะแสดงที่นี่...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- หน้าเกี่ยวกับเรา -->
+        <section id="about" class="page">
+            <div class="section">
+                <h2 class="section-title">เกี่ยวกับเรา</h2>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>ประวัติร้านอาหารท้องถิ่น</h3>
+                        <p>ร้านอาหารท้องถิ่นของเราเปิดดำเนินการมาตั้งแต่ปี 2545 ด้วยความตั้งใจที่จะอนุรักษ์และเผยแพร่รสชาติอาหารพื้นบ้านแท้ๆ ของภูมิภาคนี้ เราเริ่มต้นจากร้านเล็กๆ ในชุมชน และเติบโตขึ้นเรื่อยๆ จากคำชื่นชมของลูกค้า</p>
+                        <p>ทุกวันนี้ เรายังคงยึดมั่นในแนวทางเดิม นั่นคือการใช้วัตถุดิบท้องถิ่นคุณภาพสูง ปรุงตามสูตรดั้งเดิมที่สืบทอดกันมา แต่ปรับปรุงกระบวนการเพื่อให้ได้รสชาติที่สมบูรณ์แบบที่สุด</p>
+                        <h3>ปรัชญาและแนวคิด</h3>
+                        <p>เราเชื่อว่าอาหารที่ดีต้องเริ่มจากวัตถุดิบที่ดี ดังนั้นเราจึงเลือกใช้เฉพาะวัตถุดิบสดใหม่จากเกษตรกรและผู้ผลิตในท้องถิ่น เพื่อสนับสนุนชุมชนและรักษาความสดของวัตถุดิบ</p>
+                        <p>นอกจากนี้ เรายังให้ความสำคัญกับประสบการณ์การรับประทานอาหารของลูกค้า ทุกจานที่ออกจากครัวต้องผ่านการตรวจสอบคุณภาพอย่างเข้มงวด เพื่อให้มั่นใจว่าคุณจะได้รับประทานอาหารที่ดีที่สุด</p>
+                    </div>
+                    <div class="about-img" style="background-image: url('https://via.placeholder.com/600x400');"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- หน้าติดต่อเรา -->
+        <section id="contact" class="page">
+            <div class="section">
+                <h2 class="section-title">ติดต่อเรา</h2>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>ข้อมูลติดต่อ</h3>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>ที่อยู่</h4>
+                                <p>123 ถนนอาหารไทย ตำบลเมือง อำเภอเมือง จังหวัดตัวอย่าง 40000</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>โทรศัพท์</h4>
+                                <p>0-1234-5678</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>อีเมล</h4>
+                                <p>contact@localrestaurant.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>เวลาทำการ</h4>
+                                <p>ทุกวัน 10:00 - 20:00 น.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-hashtag"></i>
+                            <div>
+                                <h4>โซเชียลมีเดีย</h4>
+                                <div class="social-links">
+                                    <a href="#"><i class="fab fa-facebook"></i></a>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                    <a href="#"><i class="fab fa-line"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-map">
+                        <!-- แผนที่ Google Maps -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.566487714036!2d100.53837431535547!3d13.75630180122638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29edcfb15e2c5%3A0x6c7b4a1b3b5d6b7e!2sLocal%20Restaurant!5e0!3m2!1sen!2sth!4v1620000000000!5m2!1sen!2sth" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- หน้าโปรโมชั่น -->
+        <section id="promotions" class="page">
+            <div class="section">
+                <h2 class="section-title">โปรโมชั่น</h2>
+                
+                <div class="promotions">
+                    <div class="promotion-card">
+                        <div class="promotion-img" style="background-image: url('https://via.placeholder.com/600x400');"></div>
+                        <div class="promotion-content">
+                            <h3 class="promotion-title">โปรโมชั่นอาหารจานหลัก</h3>
+                            <p class="promotion-desc">สั่งอาหารจานหลัก 2 จาน แถมเครื่องดื่ม 2 แก้ว</p>
+                            <p class="promotion-period">1 มิ.ย. - 30 มิ.ย. 2566</p>
+                        </div>
+                    </div>
+                    
+                    <div class="promotion-card">
+                        <div class="promotion-img" style="background-image: url('https://via.placeholder.com/600x400');"></div>
+                        <div class="promotion-content">
+                            <h3 class="promotion-title">ส่วนลดสมาชิกใหม่</h3>
+                            <p class="promotion-desc">สมัครสมาชิกวันนี้ รับส่วนลด 20% สำหรับการสั่งอาหารครั้งแรก</p>
+                            <p class="promotion-period">1 มิ.ย. - 31 ส.ค. 2566</p>
+                        </div>
+                    </div>
+                    
+                    <div class="promotion-card">
+                        <div class="promotion-img" style="background-image: url('https://via.placeholder.com/600x400');"></div>
+                        <div class="promotion-content">
+                            <h3 class="promotion-title">วันเกิดสุขสันต์</h3>
+                            <p class="promotion-desc">แสดงบัตรประชาชนในวันเกิด รับฟรีของหวาน 1 จาน</p>
+                            <p class="promotion-period">ตลอดปี 2566</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- หน้าสั่งอาหารออนไลน์ -->
+        <section id="order" class="page">
+            <div class="section">
+                <h2 class="section-title">สั่งอาหารออนไลน์</h2>
+                
+                <div class="order-container">
+                    <div class="cart-items">
+                        <h3>รายการอาหารในตะกร้า</h3>
+                        <div id="cartItems">
+                            <!-- รายการอาหารในตะกร้าจะถูกเพิ่มโดย JavaScript -->
+                            <p class="empty-cart-message">ตะกร้าของคุณว่างเปล่า</p>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <h3 class="summary-title">สรุปคำสั่งซื้อ</h3>
+                        <div class="summary-item">
+                            <span>ยอดรวม</span>
+                            <span id="subtotal">0 ฿</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>ค่าจัดส่ง</span>
+                            <span id="deliveryFee">0 ฿</span>
+                        </div>
+                        <div class="summary-item summary-total">
+                            <span>รวมทั้งหมด</span>
+                            <span id="total">0 ฿</span>
+                        </div>
+                        <button class="btn checkout-btn" id="checkoutBtn">ดำเนินการชำระเงิน</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- หน้าชำระเงิน -->
+        <section id="payment" class="page">
+            <div class="section">
+                <div class="payment-container">
+                    <div class="payment-steps">
+                        <div class="step completed">
+                            <div class="step-number">1</div>
+                            <div class="step-text">ตะกร้าสินค้า</div>
+                        </div>
+                        <div class="step active">
+                            <div class="step-number">2</div>
+                            <div class="step-text">ชำระเงิน</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">เสร็จสิ้น</div>
+                        </div>
+                    </div>
+                    
+                    <h2 class="section-title">วิธีการชำระเงิน</h2>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method selected" data-method="credit">
+                            <i class="fas fa-credit-card"></i>
+                            <h3>บัตรเครดิต/เดบิต</h3>
+                        </div>
+                        <div class="payment-method" data-method="promptpay">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>พร้อมเพย์</h3>
+                        </div>
+                        <div class="payment-method" data-method="cash">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <h3>เงินสดเมื่อรับอาหาร</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- ฟอร์มข้อมูลบัตรเครดิต -->
+                    <div class="payment-form" id="creditCardForm">
+                        <h3>ข้อมูลบัตรเครดิต/เดบิต</h3>
+                        
+                        <div class="form-group">
+                            <label for="cardNumber" class="form-label">หมายเลขบัตร</label>
+                            <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cardExpiry" class="form-label">วันหมดอายุ</label>
+                                <input type="text" id="cardExpiry" class="form-control" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="cardCvv" class="form-label">CVV</label>
+                                <input type="text" id="cardCvv" class="form-control" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardName" class="form-label">ชื่อบนบัตร</label>
+                            <input type="text" id="cardName" class="form-control" placeholder="ชื่อ นามสกุล">
+                        </div>
+                    </div>
+                    
+                    <!-- ฟอร์มพร้อมเพย์ -->
+                    <div class="payment-form" id="promptpayForm" style="display: none;">
+                        <h3>ชำระผ่านพร้อมเพย์</h3>
+                        <p>กรุณาชำระเงินไปยังหมายเลขโทรศัพท์ 08-1234-5678</p>
+                        <div style="text-align: center; margin: 2rem 0;">
+                            <img src="https://via.placeholder.com/200x200" alt="QR Code พร้อมเพย์" style="max-width: 200px;">
+                            <p>หรือสแกน QR Code ด้านบน</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentProof" class="form-label">อัปโหลดสลิปการโอน</label>
+                            <input type="file" id="paymentProof" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <!-- ฟอร์มเงินสด -->
+                    <div class="payment-form" id="cashForm" style="display: none;">
+                        <h3>ชำระเงินสดเมื่อรับอาหาร</h3>
+                        <p>กรุณาเตรียมเงินสดให้พอดีเพื่อความสะดวกและรวดเร็ว</p>
+                        <div class="form-group">
+                            <label for="deliveryNote" class="form-label">หมายเหตุเพิ่มเติม</label>
+                            <textarea id="deliveryNote" class="form-control" rows="3" placeholder="เช่น ต้องการให้ทอนแบงก์อะไรบ้าง, วิธีการส่งอาหาร"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-actions">
+                        <button class="btn btn-secondary" id="backToCartBtn">กลับไปตะกร้าสินค้า</button>
+                        <button class="btn" id="confirmPaymentBtn">ยืนยันการชำระเงิน</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- หน้าสำเร็จ -->
+        <section id="success" class="page">
+            <div class="section">
+                <div class="success-container">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="success-title">สั่งอาหารสำเร็จ!</h2>
+                    <p class="success-message">ขอบคุณที่ใช้บริการร้านอาหารท้องถิ่นของเรา หมายเลขคำสั่งซื้อของคุณคือ <strong>#ORD123456</strong></p>
+                    <p class="success-message">คุณสามารถติดตามสถานะการสั่งซื้อได้ที่อีเมลหรือเบอร์โทรศัพท์ที่ลงทะเบียนไว้</p>
+                    <a href="#" class="btn nav-link" data-page="home">กลับสู่หน้าหลัก</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ส่วนท้ายเว็บ -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>เกี่ยวกับเรา</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="about">ประวัติร้าน</a></li>
+                    <li><a href="#">ทีมงาน</a></li>
+                    <li><a href="#">วัตถุดิบ</a></li>
+                    <li><a href="#">ความยั่งยืน</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>เมนูอาหาร</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="menu">อาหารจานหลัก</a></li>
+                    <li><a href="#" class="nav-link" data-page="menu">อาหารว่าง</a></li>
+                    <li><a href="#" class="nav-link" data-page="menu">ของหวาน</a></li>
+                    <li><a href="#" class="nav-link" data-page="menu">เครื่องดื่ม</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>ข้อมูลติดต่อ</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 ถนนอาหารไทย</li>
+                    <li><i class="fas fa-phone-alt"></i> 0-1234-5678</li>
+                    <li><i class="fas fa-envelope"></i> contact@localrestaurant.com</li>
+                    <li>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-line"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>บริการ</h3>
+                <ul>
+                    <li><a href="#" class="nav-link" data-page="order">สั่งอาหารออนไลน์</a></li>
+                    <li><a href="#">บริการจัดเลี้ยง</a></li>
+                    <li><a href="#">สูตรอาหาร</a></li>
+                    <li><a href="#" class="nav-link" data-page="promotions">โปรโมชั่น</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 ร้านอาหารท้องถิ่น. สงวนลิขสิทธิ์ทุกประการ.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ข้อมูลเมนูอาหาร
+        const menuItems = [
+            {
+                id: 1,
+                name: "ส้มตำไทย",
+                description: "ส้มตำรสแซ่บ พร้อมมะละกอสับและถั่วลิสงคั่ว",
+                price: 60,
+                category: "appetizer",
+                image: "https://via.placeholder.com/300x200?text=ส้มตำไทย"
+            },
+            {
+                id: 2,
+                name: "ต้มยำกุ้ง",
+                description: "ต้มยำกุ้งน้ำข้น รสชาติจัดจ้าน หอมเครื่องต้มยำ",
+                price: 120,
+                category: "main",
+                image: "https://via.placeholder.com/300x200?text=ต้มยำกุ้ง"
+            },
+            {
+                id: 3,
+                name: "ผัดไทย",
+                description: "ผัดไทยเส้นจันท์ ห่อไข่ ใส่กุ้งสดและถั่วงอก",
+                price: 80,
+                category: "main",
+                image: "https://via.placeholder.com/300x200?text=ผัดไทย"
+            },
+            {
+                id: 4,
+                name: "ข้าวเหนียวมะม่วง",
+                description: "ข้าวเหนียวมูนหอมๆ กับมะม่วงสุกหวานฉ่ำ",
+                price: 70,
+                category: "dessert",
+                image: "https://via.placeholder.com/300x200?text=ข้าวเหนียวมะม่วง"
+            },
+            {
+                id: 5,
+                name: "น้ำตะไคร้",
+                description: "น้ำตะไคร้หอมเย็น ช่วยดับกระหาย",
+                price: 30,
+                category: "drink",
+                image: "https://via.placeholder.com/300x200?text=น้ำตะไคร้"
+            },
+            {
+                id: 6,
+                name: "แกงเขียวหวาน",
+                description: "แกงเขียวหวานไก่ รสชาติกลมกล่อม",
+                price: 90,
+                category: "main",
+                image: "https://via.placeholder.com/300x200?text=แกงเขียวหวาน"
+            },
+            {
+                id: 7,
+                name: "ทอดมัน",
+                description: "ทอดมันกุ้ง หอมเครื่องแกง พร้อมน้ำจิ้มหวาน",
+                price: 50,
+                category: "appetizer",
+                image: "https://via.placeholder.com/300x200?text=ทอดมัน"
+            },
+            {
+                id: 8,
+                name: "ขนมครก",
+                description: "ขนมครกหน้าเนย หอมกรอบ นุ่มใน",
+                price: 40,
+                category: "dessert",
+                image: "https://via.placeholder.com/300x200?text=ขนมครก"
+            }
+        ];
+
+        // ข้อมูลตะกร้าสินค้า
+        let cart = [];
+
+        // DOM Elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuItemsContainer = document.getElementById('menuItems');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const subtotalElement = document.getElementById('subtotal');
+        const deliveryFeeElement = document.getElementById('deliveryFee');
+        const totalElement = document.getElementById('total');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const backToCartBtn = document.getElementById('backToCartBtn');
+        const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const creditCardForm = document.getElementById('creditCardForm');
+        const promptpayForm = document.getElementById('promptpayForm');
+        const cashForm = document.getElementById('cashForm');
+        
+        // OCR Elements
+        const ocrUpload = document.getElementById('ocrUpload');
+        const ocrInput = document.getElementById('ocrInput');
+        const ocrPreview = document.getElementById('ocrPreview');
+        const ocrResult = document.getElementById('ocrResult');
+
+        // ฟังก์ชันแสดงหน้าเว็บ
+        function showPage(pageId) {
+            pages.forEach(page => {
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+            
+            // อัปเดต URL โดยไม่รีโหลดหน้า
+            history.pushState(null, null, `#${pageId}`);
+            
+            // ซ่อนเมนูมือถือเมื่อคลิกที่ลิงก์
+            if (window.innerWidth <= 768) {
+                navMenu.classList.remove('active');
+            }
+            
+            // โหลดเนื้อหาของหน้าเมื่อแสดง
+            if (pageId === 'menu') {
+                loadMenuItems();
+            } else if (pageId === 'order') {
+                updateCart();
+            }
+        }
+
+        // ฟังก์ชันโหลดเมนูอาหาร
+        function loadMenuItems(category = 'all') {
+            menuItemsContainer.innerHTML = '';
+            
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+            
+            if (filteredItems.length === 0) {
+                menuItemsContainer.innerHTML = '<p>ไม่พบเมนูในหมวดหมู่นี้</p>';
+                return;
+            }
+            
+            filteredItems.forEach(item => {
+                const menuItemElement = document.createElement('div');
+                menuItemElement.className = 'menu-item';
+                menuItemElement.innerHTML = `
+                    <div class="menu-item-img" style="background-image: url('${item.image}')"></div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <p class="menu-item-price">${item.price} ฿</p>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <button class="btn add-to-cart" data-id="${item.id}">เพิ่มในตะกร้า</button>
+                    </div>
+                `;
+                menuItemsContainer.appendChild(menuItemElement);
+            });
+            
+            // เพิ่ม Event Listener สำหรับปุ่มเพิ่มในตะกร้า
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // ฟังก์ชันเพิ่มสินค้าในตะกร้า
+        function addToCart(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            const item = menuItems.find(item => item.id === itemId);
+            
+            // ตรวจสอบว่ามีสินค้านี้ในตะกร้าหรือไม่
+            const existingItem = cart.find(cartItem => cartItem.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            
+            // แสดงการแจ้งเตือน
+            alert(`เพิ่ม ${item.name} ในตะกร้าเรียบร้อยแล้ว`);
+        }
+
+        // ฟังก์ชันอัปเดตตะกร้าสินค้า
+        function updateCart() {
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-message">ตะกร้าของคุณว่างเปล่า</p>';
+                subtotalElement.textContent = '0 ฿';
+                deliveryFeeElement.textContent = '0 ฿';
+                totalElement.textContent = '0 ฿';
+                return;
+            }
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-img" style="background-image: url('${item.image}')"></div>
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">${item.price} ฿</div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        <span class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></span>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // คำนวณค่าจัดส่ง (ถ้ามี)
+            const deliveryFee = subtotal > 0 ? 20 : 0;
+            const total = subtotal + deliveryFee;
+            
+            subtotalElement.textContent = `${subtotal} ฿`;
+            deliveryFeeElement.textContent = `${deliveryFee} ฿`;
+            totalElement.textContent = `${total} ฿`;
+            
+            // เพิ่ม Event Listener สำหรับปุ่มปรับจำนวนและลบสินค้า
+            document.querySelectorAll('.minus').forEach(button => {
+                button.addEventListener('click', decreaseQuantity);
+            });
+            
+            document.querySelectorAll('.plus').forEach(button => {
+                button.addEventListener('click', increaseQuantity);
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', updateQuantity);
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', removeItem);
+            });
+        }
+
+        // ฟังก์ชันลดจำนวนสินค้า
+        function decreaseQuantity(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === itemId);
+            
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+                updateCart();
+            }
+        }
+
+        // ฟังก์ชันเพิ่มจำนวนสินค้า
+        function increaseQuantity(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === itemId);
+            
+            item.quantity += 1;
+            updateCart();
+        }
+
+        // ฟังก์ชันอัปเดตจำนวนสินค้า
+        function updateQuantity(e) {
+            const itemId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === itemId);
+            const newQuantity = parseInt(e.target.value);
+            
+            if (newQuantity > 0) {
+                item.quantity = newQuantity;
+                updateCart();
+            } else {
+                e.target.value = item.quantity;
+            }
+        }
+
+        // ฟังก์ชันลบสินค้า
+        function removeItem(e) {
+            const itemId = parseInt(e.target.closest('.remove-item').getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+        }
+
+        // ฟังก์ชันตรวจสอบหน้าแรกเมื่อโหลดเว็บ
+        function checkInitialPage() {
+            const hash = window.location.hash.substring(1);
+            const validPages = ['home', 'menu', 'about', 'contact', 'promotions', 'order', 'payment', 'success'];
+            
+            if (hash && validPages.includes(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        }
+
+        // ฟังก์ชัน OCR
+        function setupOCR() {
+            // เมื่อคลิกที่พื้นที่อัปโหลด
+            ocrUpload.addEventListener('click', () => {
+                ocrInput.click();
+            });
+            
+            // เมื่อเลือกไฟล์
+            ocrInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                // แสดงภาพตัวอย่าง
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    ocrPreview.src = event.target.result;
+                    ocrPreview.style.display = 'block';
+                    ocrResult.innerHTML = '<p>กำลังประมวลผลภาพ...</p>';
+                    
+                    // เรียกใช้ Tesseract.js สำหรับ OCR
+                    Tesseract.recognize(
+                        event.target.result,
+                        'tha+eng', // ภาษาไทยและอังกฤษ
+                        {
+                            logger: m => console.log(m)
+                        }
+                    ).then(({ data: { text } }) => {
+                        ocrResult.innerHTML = `<p>ผลลัพธ์:</p><pre>${text}</pre>`;
+                    }).catch(err => {
+                        ocrResult.innerHTML = `<p>เกิดข้อผิดพลาด: ${err.message}</p>`;
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Event Listeners
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
+
+        categoryBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryBtns.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const category = button.getAttribute('data-category');
+                loadMenuItems(category);
+            });
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('กรุณาเพิ่มสินค้าในตะกร้าก่อนดำเนินการชำระเงิน');
+                return;
+            }
+            showPage('payment');
+        });
+
+        backToCartBtn.addEventListener('click', () => {
+            showPage('order');
+        });
+
+        confirmPaymentBtn.addEventListener('click', () => {
+            // ในทางปฏิบัติควรมีการตรวจสอบข้อมูลการชำระเงิน
+            showPage('success');
+            cart = []; // ล้างตะกร้าสินค้าหลังชำระเงินเสร็จสิ้น
+            updateCart();
+        });
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+                
+                const paymentMethod = method.getAttribute('data-method');
+                
+                // แสดงฟอร์มที่เกี่ยวข้องกับวิธีการชำระเงิน
+                creditCardForm.style.display = 'none';
+                promptpayForm.style.display = 'none';
+                cashForm.style.display = 'none';
+                
+                if (paymentMethod === 'credit') {
+                    creditCardForm.style.display = 'block';
+                } else if (paymentMethod === 'promptpay') {
+                    promptpayForm.style.display = 'block';
+                } else if (paymentMethod === 'cash') {
+                    cashForm.style.display = 'block';
+                }
+            });
+        });
+
+        // เริ่มต้นการทำงานเมื่อโหลดหน้าเว็บ
+        document.addEventListener('DOMContentLoaded', () => {
+            checkInitialPage();
+            setupOCR();
+        });
+
+        // จัดการเมื่อย้อนกลับหรือไปข้างหน้าในประวัติ
+        window.addEventListener('popstate', () => {
+            checkInitialPage();
+        });
+    </script>
+</body>
+</html>
